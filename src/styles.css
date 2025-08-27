@@ -38,7 +38,7 @@ body {
 .card-stack {
     position: relative;
     max-width: 320px;
-    height: 440px;      
+    height: 50vh;      
     margin-bottom: 30px;
     display: flex;
     align-items: center;
@@ -59,7 +59,7 @@ body {
     }
     .card-stack {
         max-width: 90%;
-        max-height: 350px; /* Adjust height for small screens */
+        height: 40vh; /* Adjust height for small screens */
     }
 }
 
@@ -67,8 +67,11 @@ body {
     .controls {
         gap: 1px !important; /* Further reduce gap */
     }
+    .card-stack {
+        height: 35vh; /* Even smaller height for tiny screens */
+    }
     .controls button {
-        width: 45px !important; /* Further reduce button size */
+        width: 45px !important;
         height: 35px !important;
     }
 }
@@ -88,6 +91,9 @@ body {
     top: 20px;
     left: 20px;
     font-size: 50px;
+    top: 5vh; /* Relative positioning */
+    left: 5vw; /* Relative positioning */
+    font-size: 8vw;
     opacity: 0;
     transform: scale(0);
     pointer-events: none;
@@ -130,6 +136,7 @@ body {
     margin-top: 10px;
     width: 100%;
     justify-content: center;
+    flex-shrink: 0; /* Prevent controls from shrinking */
 }
 
 .controls button {
@@ -163,7 +170,9 @@ body {
 .summary {
     text-align: center;
     color: #000000;
-    }
+    max-height: 60vh;
+    overflow-y: auto;
+}
 
 .summary img {
     width: 100px;

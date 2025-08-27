@@ -63,7 +63,7 @@ function CardStack(){
             if (activeRef.current && activeRef.current.swipe) {
                 await activeRef.current.swipe(dir);
             }
-        }, 600), // Wait 600ms between swipes
+        },),
         [currentIndex, activeRef]
     )
 

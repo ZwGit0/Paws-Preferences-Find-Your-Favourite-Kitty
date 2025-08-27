@@ -15,6 +15,7 @@
   "dependencies": {
     "@react-spring/web": "^9.7.5",
     "gh-pages": "^6.3.0",
+    "lodash": "^4.17.21",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-icons": "^5.5.0",

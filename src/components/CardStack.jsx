@@ -1,7 +1,8 @@
-import { useState, useEffect, useRef, createRef } from 'react';
+import { useState, useEffect, useRef, createRef, useCallback } from 'react';
 import TinderCard from 'react-tinder-card'
 import CatCard from './CatCard';
 import Summary from './Summary';
+import { debounce } from 'lodash';
 import { FaTimes, FaHeart } from "react-icons/fa"
 
 function CardStack(){
@@ -52,14 +53,19 @@ function CardStack(){
         const nextIndex = index - 1
         setCI(nextIndex)
         if (nextIndex < 0) setFinished(true)
+        // Delay resetting swipeDir to allow animation to complete
+        setTimeout(() => setSwipeDir(null), 600);
     }
 
-    const swipe = async (dir) => {
-        if (currentIndexRef.current < 0) return
-        if (activeRef.current && activeRef.current.swipe) {
-        await activeRef.current.swipe(dir)
-        }
-    }
+    const swipe = useCallback(
+        debounce(async (dir) => {
+            if (currentIndexRef.current < 0) return;
+            if (activeRef.current && activeRef.current.swipe) {
+                await activeRef.current.swipe(dir);
+            }
+        }, 600), // Wait 600ms between swipes
+        [currentIndex, activeRef]
+    )
 
     return (
         <div className="stack-container">
@@ -73,7 +79,6 @@ function CardStack(){
                         ref={activeRef}
                         key={cats[currentIndex]}
                         onSwipe={(dir) => handleSwipe(dir, cats[currentIndex], currentIndex)}
-                        onCardLeftScreen={() => setSwipeDir(null)}
                         preventSwipe={['up', 'down']}
                         swipeRequirementType="position"
                         swipeThreshold={35}
